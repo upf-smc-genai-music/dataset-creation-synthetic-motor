@@ -2,3 +2,4 @@ numpy
 soundfile
 pandas
 scipy
+librosa

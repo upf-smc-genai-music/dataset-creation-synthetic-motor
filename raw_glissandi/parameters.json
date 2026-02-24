@@ -3,7 +3,7 @@
         "name": "frequency_hz",
         "type": "continuous",
         "unit": "Hz",
-        "min": 196.5974,
-        "max": 1307.3534
+        "min": 195.9083,
+        "max": 1396.2754
     }
 }
