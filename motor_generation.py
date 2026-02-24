@@ -70,6 +70,12 @@ def generate_motor_sound_from_rpm(rpm,
 # Dataset Generation
 # ==========================
 
+# ==========================
+# Dataset Generation
+# ==========================
+
+FRAME_RATE = 75  # frames per second
+
 for i, rpm in enumerate(rpm_values):
     base_name = f"motor_{i:03d}"
     wav_path = os.path.join(output_folder, base_name + ".wav")
@@ -85,8 +91,14 @@ for i, rpm in enumerate(rpm_values):
     # Save WAV
     wavfile.write(wav_path, sr, audio)
 
-    # Save CSV (only RPM, as requested)
-    df = pd.DataFrame({"rpm": [rpm]})
-    df.to_csv(csv_path, index=False)
+    # Number of parameter frames
+    n_frames = int(FRAME_RATE * segment_duration_sec)
+
+    # Create constant RPM column at 75 fps resolution
+    df = pd.DataFrame({
+        "rpm": np.full(n_frames, rpm)
+    })
+
+    df.to_csv(csv_path, index=False, float_format="%.4f")
 
 print(f"Generated {n_files} files in '{output_folder}' folder.")
